@@ -25,14 +25,26 @@
 #define _DATASETCLASS_H
 
 #include <iostream>
+#include <vector>
+#include <chrono>
+#include <random>
+
 #include "PointClass.h"
 #include "EdgeClass.h"
 
-// Definition file
+// Declaration file
+
+using namespace std;
+
 class DataSet {
-	// Construct a data set of N random points.
-	// Constraints:
-	// 		Bounded by X-Y limits
-	//		
+		
+	public:
+	vector<Point> points;
+	vector<Edge> edges;
+	DataSet(int x, int y, int n);
+	
+	private:
+	int n; // number of points
+	
 };
 #endif

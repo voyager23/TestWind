@@ -28,5 +28,16 @@
 // Implementation file
 
 Edge::Edge(Point p, Point q) {
-	
+	from = p;
+	to   = q;
+	double dy = from.gety() - to.gety();
+	double dx = from.getx() - to.getx();
+	m = dy / dx;
+	c = from.gety() - (m * from.getx());
+	used = false;	
+}
+
+int Edge::is_co_linear(Edge e) {
+	if ((m == e.m)&&(c == e.c)) return 1;
+	return 0;
 }

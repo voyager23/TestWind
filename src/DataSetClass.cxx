@@ -22,11 +22,77 @@
  */
 
 
-#include <iostream>
 #include "../include/DataSetClass.h"
 
 // Implementation file
 
+DataSet::DataSet(int x, int y, int n) {
+	cout << "DataSet: parameters " << x << " " << y << " " << n << endl;
 
+	// Construct a data set of N random points.
+	// Constraints:
+	// 		Bounded by X-Y limits
+	//		No 3 points co-linear
+	// Exposes a std::vector<Points>
+	// Exposes a std::vector<Edge>
+	
+	// construct a trivial random generator engine from a time-based seed:
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine generator (seed);
+
+	std::uniform_int_distribution<int> dist_x(1,x-1);
+	std::uniform_int_distribution<int> dist_y(1,y-1);
+
+	std::cout << "some random numbers between 1 and 511: ";
+	for (int i=0; i<n; ++i) {
+		std::cout << dist_x(generator) << ",";
+		std::cout << dist_y(generator) << ": ";
+	}
+	std::cout << endl;
+	
+	points.clear();
+	edges.clear();
+	
+	bool co_linear = false;
+	do { // loop
+
+		// generate a vector of N points
+		// generate a vector of (N*N - N)/2 edges;
+		// search edges for equal edges (same m and c)
+		// 	if(found) 
+		//		co_linear = true
+		// end loop
+		
+		// create points
+		for(auto x = 0; x < n; ++x) {
+			Point p = Point(dist_x(generator), dist_y(generator));
+			points.push_back(p);
+		}
+		
+		// create edges
+		for(vector<Point>::iterator from = points.begin(); from != points.end() - 1; ++from) {
+			for(vector<Point>::iterator to = from + 1; to != points.end(); ++to) {
+				Edge e = Edge(*from, *to);	// Edge object will calculate m & c, setting used to false
+				edges.push_back(e);
+			}
+		}
+		
+		// test edges and set co_linear
+		for(vector<Edge>::iterator a = edges.begin(); a != edges.end() - 1; ++a) {
+			for(vector<Edge>::iterator b = a + 1; b != edges.end(); ++b) {
+				if( (*a).is_co_linear(*b) == 1 ) {
+					co_linear = true;
+					cout << "is_co_linear reports true\n";
+					break;
+				} else {
+					co_linear = false;
+				}
+			}
+		}
+		 
+		
+	} while(co_linear == true);
+	cout << "Dataset construction complete\n";
+};
 
 

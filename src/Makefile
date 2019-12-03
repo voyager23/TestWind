@@ -10,7 +10,7 @@ HDRS = $(addprefix ../include/, $(HEADERS))
 OUT = -o ../build/$@
 
 all : tw1.cxx $(OBJS)
-	g++ tw1.cxx ../build/PointClass.o ../build/EdgeClass.o -o ../bin/tw1
+	g++ tw1.cxx $(OBJS) -o ../bin/tw1
 
 ../build/PointClass.o : PointClass.cxx $(HDRS)
 	g++ -c PointClass.cxx $(OUT)

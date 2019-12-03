@@ -30,14 +30,19 @@
 
 using namespace std;
 
-// Definition file
+// Declaration file
 
 class Edge {
+	
+	private:
 	Point from;
 	Point to;
 	double m;
 	double c;
 	int used;
+	
+	public:
 	Edge(Point p, Point q);
+	int is_co_linear(Edge e);
 };
 #endif

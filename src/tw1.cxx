@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 	Point from = Point(); 
 	Point to   = Point(123,345);
 	to.prt_point(); cout << endl;
+	DataSet dataset = DataSet(512,512,5);
 	return 0;
 }
 

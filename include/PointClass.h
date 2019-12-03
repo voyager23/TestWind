@@ -26,6 +26,8 @@
 #define POINTCLASS_H
 using namespace std;
 
+// Declaration file
+
 class Point {
 	private:
 		int x,y;
