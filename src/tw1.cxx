@@ -32,14 +32,28 @@ using namespace std;
 
 int main(int argc, char **argv)
 {
-	Point from = Point(); 
-	Point to   = Point(123,345);
-	to.prt_point(); cout << endl;
-	DataSet dataset = DataSet(512,512,N);
-	sort( dataset.edges.begin(), dataset.edges.end(), edge_sort_funct);
-	cout << endl << "========== Sorted ==========" << endl;
+	vector<Edge>::iterator first,last;
+	DataSet dataset = DataSet(512,512,N);	
+		
+	cout << endl << "========== Not Sorted ==========" << endl;
+	prt_vector_edges(dataset.edges);
+	//sort( dataset.edges.begin(), dataset.edges.end(), edge_sort_funct);
+	
+	// Sort the edges vector by sub-section based on equal 'from' points
+	first = dataset.edges.begin();
+	last = first;
+	while(1) {
+		// advance the last pointer
+		while ((last != dataset.edges.end())&&((*first).from.cmp_point((*last).from) == 1)) 
+			last += 1;
+		sort(first, last, edge_sort_funct);
+		if(last == dataset.edges.end()) break;
+		first = last;
+	} // while(1)
+	
+	cout << endl << "========== Sorted by sub-section ==========" << endl;
+	
 	prt_vector_edges(dataset.edges);
 	
 	return 0;
 }
-

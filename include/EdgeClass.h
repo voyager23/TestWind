@@ -36,8 +36,7 @@ using namespace std;
 class Edge {
 	
 	private:
-	Point from;
-	Point to;
+
 	double m;
 	double c;
 
@@ -49,7 +48,8 @@ class Edge {
 	int is_co_linear(Edge e);
 	void prt_edge();
 	double phi;
-	
+	Point from;
+	Point to;	
 };
 
 bool edge_sort_funct(Edge i, Edge j);

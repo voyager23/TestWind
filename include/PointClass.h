@@ -40,6 +40,7 @@ class Point {
 		Point();
 		Point(int x, int y);
 		void prt_point() { cout << "(" << this->x << "," << this->y << ")    "; };
+		int cmp_point(Point);
 };
 #endif
 

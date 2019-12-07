@@ -97,11 +97,9 @@ DataSet::DataSet(int x, int y, int n) {
 	/* 
 	 * Sort subsets of edges (equal from points) using rotation angle phi radians
 	 */
-	
-	cout << "Dataset construction complete\n";
-	prt_vector_points(points);
-	cout << endl;
-	prt_vector_edges(edges);
+	 
+	prt_vector_points(points);	
+	cout << "Dataset construction complete";
 };
 
 void prt_vector_points(vector<Point> points) {
