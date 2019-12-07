@@ -70,8 +70,9 @@ DataSet::DataSet(int x, int y, int n) {
 		}
 		
 		// create edges
-		for(vector<Point>::iterator from = points.begin(); from != points.end() - 1; ++from) {
-			for(vector<Point>::iterator to = from + 1; to != points.end(); ++to) {
+		for(vector<Point>::iterator from = points.begin(); from != points.end(); ++from) {
+			for(vector<Point>::iterator to = points.begin(); to != points.end(); ++to) {
+				if(to == from) continue;
 				Edge e = Edge(*from, *to);	// Edge object will calculate m & c, setting used to false
 				edges.push_back(e);
 			}
@@ -92,7 +93,32 @@ DataSet::DataSet(int x, int y, int n) {
 		 
 		
 	} while(co_linear == true);
+	
+	/* 
+	 * Sort subsets of edges (equal from points) using rotation angle phi radians
+	 */
+	
 	cout << "Dataset construction complete\n";
+	prt_vector_points(points);
+	cout << endl;
+	prt_vector_edges(edges);
 };
+
+void prt_vector_points(vector<Point> points) {
+	for(auto p = points.begin(); p != points.end(); ++p) {
+		(*p).prt_point();
+	}
+	cout << endl;	
+}
+
+void prt_vector_edges(vector<Edge> edges) {
+	for(auto e = edges.begin(); e != edges.end(); ++e) {
+		(*e).prt_edge();
+		cout << endl;
+	}
+	cout << endl;
+}
+	
+
 
 

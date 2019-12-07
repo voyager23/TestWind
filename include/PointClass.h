@@ -39,7 +39,7 @@ class Point {
 		void sety(int y);
 		Point();
 		Point(int x, int y);
-		void prt_point() { cout << "(" << this->x << "," << this->y << ")\t"; };
+		void prt_point() { cout << "(" << this->x << "," << this->y << ")    "; };
 };
 #endif
 

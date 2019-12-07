@@ -42,9 +42,15 @@ class DataSet {
 	vector<Point> points;
 	vector<Edge> edges;
 	DataSet(int x, int y, int n);
+
+	
 	
 	private:
 	int n; // number of points
 	
 };
+
+	void prt_vector_points(vector<Point>);
+	void prt_vector_edges(vector<Edge>);
+	
 #endif

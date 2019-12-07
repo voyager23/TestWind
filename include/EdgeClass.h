@@ -25,6 +25,7 @@
 #define EDGECLASS_H
 
 #include <iostream>
+#include <vector>
 #include "PointClass.h"
 
 
@@ -39,10 +40,18 @@ class Edge {
 	Point to;
 	double m;
 	double c;
+
 	int used;
+	vector<Edge>::iterator next;
 	
 	public:
 	Edge(Point p, Point q);
 	int is_co_linear(Edge e);
+	void prt_edge();
+	double phi;
+	
 };
+
+bool edge_sort_funct(Edge i, Edge j);
+
 #endif

@@ -22,7 +22,8 @@
  */
 
 #include <iostream>
-#define N 32
+#include <algorithm>
+#define N 5
 #include "../include/PointClass.h"
 #include "../include/EdgeClass.h"
 #include "../include/DataSetClass.h"
@@ -35,6 +36,10 @@ int main(int argc, char **argv)
 	Point to   = Point(123,345);
 	to.prt_point(); cout << endl;
 	DataSet dataset = DataSet(512,512,N);
+	sort( dataset.edges.begin(), dataset.edges.end(), edge_sort_funct);
+	cout << endl << "========== Sorted ==========" << endl;
+	prt_vector_edges(dataset.edges);
+	
 	return 0;
 }
 

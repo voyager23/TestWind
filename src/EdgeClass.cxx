@@ -23,6 +23,7 @@
 
 
 #include <iostream>
+#include <cmath>
 #include "../include/EdgeClass.h"
 
 // Implementation file
@@ -34,6 +35,7 @@ Edge::Edge(Point p, Point q) {
 	double dx = from.getx() - to.getx();
 	m = dy / dx;
 	c = from.gety() - (m * from.getx());
+	phi = atan(m);
 	used = false;	
 }
 
@@ -41,3 +43,19 @@ int Edge::is_co_linear(Edge e) {
 	if ((m == e.m)&&(c == e.c)) return 1;
 	return 0;
 }
+
+void Edge::prt_edge() {
+	from.prt_point(); to.prt_point();
+	cout << m << "  " << c << "  " << phi << "  " << used << endl;
+}
+
+//----------------------------------------------------------------
+
+bool edge_sort_funct(Edge i, Edge j) {
+	// return true if i is considered to come before j.
+	// 	else return false	
+	return (i.phi < j.phi);
+}
+
+
+
