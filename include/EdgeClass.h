@@ -34,13 +34,13 @@ using namespace std;
 // Declaration file
 
 class Edge {
-	
+	friend class DataSet;
 	private:
 
 	double m;
 	double c;
-
 	int used;
+
 	vector<Edge>::iterator next;
 	
 	public:
@@ -49,7 +49,8 @@ class Edge {
 	void prt_edge();
 	double phi;
 	Point from;
-	Point to;	
+	Point to;
+	
 };
 
 bool edge_sort_funct(Edge i, Edge j);

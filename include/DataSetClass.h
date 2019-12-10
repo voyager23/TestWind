@@ -37,12 +37,12 @@
 using namespace std;
 
 class DataSet {
-		
 	public:
 	vector<Point> points;
 	vector<Edge> edges;
+	vector<unsigned> trajectory;
 	DataSet(int x, int y, int n);
-
+	int trajectory_search();
 	
 	
 	private:
@@ -50,7 +50,9 @@ class DataSet {
 	
 };
 
-	void prt_vector_points(vector<Point>);
-	void prt_vector_edges(vector<Edge>);
+void prt_vector_points(vector<Point>);
+void prt_vector_edges(vector<Edge>);
+	
+
 	
 #endif

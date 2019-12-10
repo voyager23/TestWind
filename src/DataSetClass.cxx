@@ -102,6 +102,45 @@ DataSet::DataSet(int x, int y, int n) {
 	cout << "Dataset construction complete";
 };
 
+int DataSet::trajectory_search() {
+	
+	int size = 0;		// number of edges in trajectory
+	double omega = 0.0; // current rotation angle (radians)
+	Point start;
+	vector<Edge>::iterator sentinel, working;
+	
+
+	
+	for(auto start_iter = points.begin(); start_iter != points.end(); ++start_iter) {
+		start = *start_iter;
+		
+		// clear all 'used' flags
+		for(auto e = edges.begin(); e != edges.end(); ++e) e->used = 0;
+		
+		// clear trajectory vector
+		trajectory.clear();
+		
+		// clear/set data values
+		omega = 0.0;
+		size = 0;
+		
+		// set the sentinel point
+		// criteria: (start.cmp_point(from)==1) && phi > omega
+		sentinel = edges.begin();
+		do {
+			
+		} while(sentinel != edges.end());
+		
+		// loop start
+		
+		// loop end
+		
+		// print/output trajectory vector
+	
+	} // for start_iter...
+	return 0;
+}
+
 void prt_vector_points(vector<Point> points) {
 	for(auto p = points.begin(); p != points.end(); ++p) {
 		(*p).prt_point();
@@ -116,6 +155,8 @@ void prt_vector_edges(vector<Edge> edges) {
 	}
 	cout << endl;
 }
+
+	
 	
 
 

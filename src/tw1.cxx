@@ -37,8 +37,10 @@ int main(int argc, char **argv)
 		
 	cout << endl << "========== Not Sorted ==========" << endl;
 	prt_vector_edges(dataset.edges);
-	//sort( dataset.edges.begin(), dataset.edges.end(), edge_sort_funct);
 	
+#if(1)
+	sort( dataset.edges.begin(), dataset.edges.end(), edge_sort_funct);
+#else	
 	// Sort the edges vector by sub-section based on equal 'from' points
 	first = dataset.edges.begin();
 	last = first;
@@ -50,9 +52,9 @@ int main(int argc, char **argv)
 		if(last == dataset.edges.end()) break;
 		first = last;
 	} // while(1)
-	
-	cout << endl << "========== Sorted by sub-section ==========" << endl;
-	
+#endif
+
+	cout << endl << "========== Sorted ==========" << endl;
 	prt_vector_edges(dataset.edges);
 	
 	return 0;
