@@ -128,10 +128,22 @@ int DataSet::trajectory_search() {
 		// criteria: (start.cmp_point(from)==1) && phi > omega
 		sentinel = edges.begin();
 		do {
-			
+			if (((sentinel->from).cmp_point(start)==1)&&((sentinel->phi) > omega)) break;
+			++sentinel;
 		} while(sentinel != edges.end());
 		
-		// loop start
+		// handle error
+		if(sentinel == edges.end()) {
+			cout << "Error: Failed to find start point." << endl;
+			exit(1);
+		}
+		
+		// main loop start
+		working = sentinel;
+		while(1) {
+			
+			
+		}
 		
 		// loop end
 		
