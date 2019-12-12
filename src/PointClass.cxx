@@ -44,8 +44,10 @@ int Point::gety() { return y; }
 void Point::sety(int b) { y = b; }
 void Point::setx(int a) { x = a; }
 
-int Point::cmp_point(Point p) {
-	if((this->x == p.x)&&(this->y == p.y)) return 1;
-	return 0;
+bool Point::match_point(Point& p, Point& q) {
+	return ((p.x == q.x)&&(p.y == q.y)); 
 }
+
+
+
 

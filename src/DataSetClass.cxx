@@ -106,16 +106,16 @@ int DataSet::trajectory_search() {
 	
 	int size = 0;		// number of edges in trajectory
 	double omega = 0.0; // current rotation angle (radians)
-	Point start;
-	vector<Edge>::iterator sentinel, working;
+	Point start_point;
+	vector<Edge>::iterator sentinel, current, next;
 	
 
 	
 	for(auto start_iter = points.begin(); start_iter != points.end(); ++start_iter) {
-		start = *start_iter;
+		start_point = *start_iter;
 		
 		// clear all 'used' flags
-		for(auto e = edges.begin(); e != edges.end(); ++e) e->used = 0;
+		for(auto e = edges.begin(); e != edges.end(); ++e) e->used = false;
 		
 		// clear trajectory vector
 		trajectory.clear();
@@ -125,31 +125,49 @@ int DataSet::trajectory_search() {
 		size = 0;
 		
 		// set the sentinel point
-		// criteria: (start.cmp_point(from)==1) && phi > omega
+		// criteria: equal_points(start_point,sentinel->from) && sentinel->phi > omega && sentinel->used == false
 		sentinel = edges.begin();
 		do {
-			if (((sentinel->from).cmp_point(start)==1)&&((sentinel->phi) > omega)) break;
+			if ( (start_point.match_point(start_point, sentinel->from)) && ((sentinel->phi) > omega) && (sentinel->used == false)) break;
 			++sentinel;
 		} while(sentinel != edges.end());
 		
 		// handle error
 		if(sentinel == edges.end()) {
-			cout << "Error: Failed to find start point." << endl;
+			cout << "Error: Failed to find start point in edges vector." << endl;
+			start_point.prt_point();
 			exit(1);
 		}
 		
-		// main loop start
-		working = sentinel;
-		while(1) {
-			
-			
-		}
+		// setup loop
+		current = sentinel;
+		omega = sentinel->phi;
+		next = current;
+		current->used = true;
 		
-		// loop end
+		// main loop start
+		while(1) {
+			// inner loop to find next pivot
+			do {
+				if ((start_point.match_point(current->to, next->from))&&(next->phi > omega)) break;
+				++next;
+				if(next == edges.end()) next = edges.begin(); // implement a ring
+			} while (next != current);
+			
+			if((next == current)||(next->used)) break;	// trajectory is closed
+			
+			// This is a viable edge so add to trajectory
+			trajectory.push_back(next);
+			next->used = true;
+			size += 1;
+			current = next;
+			
+		} // main loop end
 		
 		// print/output trajectory vector
+		cout << "Trajectory size: " << size << endl;
 	
-	} // for start_iter...
+	} // next start point
 	return 0;
 }
 

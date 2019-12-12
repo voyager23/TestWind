@@ -39,8 +39,11 @@ int main(int argc, char **argv)
 	prt_vector_edges(dataset.edges);
 	
 #if(1)
+
 	sort( dataset.edges.begin(), dataset.edges.end(), edge_sort_funct);
-#else	
+	
+#else
+	
 	// Sort the edges vector by sub-section based on equal 'from' points
 	first = dataset.edges.begin();
 	last = first;
@@ -52,10 +55,15 @@ int main(int argc, char **argv)
 		if(last == dataset.edges.end()) break;
 		first = last;
 	} // while(1)
+	
 #endif
 
 	cout << endl << "========== Sorted ==========" << endl;
 	prt_vector_edges(dataset.edges);
+	
+	cout << "Starting trajectory search." << endl;
+	dataset.trajectory_search();
+	cout << "Search complete." << endl;
 	
 	return 0;
 }

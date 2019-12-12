@@ -24,6 +24,7 @@
 
 #ifndef POINTCLASS_H
 #define POINTCLASS_H
+
 using namespace std;
 
 // Declaration file
@@ -39,8 +40,11 @@ class Point {
 		void sety(int y);
 		Point();
 		Point(int x, int y);
-		void prt_point() { cout << "(" << this->x << "," << this->y << ")    "; };
-		int cmp_point(Point);
+		void prt_point() { cout << "(" << this->x << "," << this->y << ")    "; }
+		
+		bool match_point(Point& p, Point& q);
+		
+		bool operator==(Point& rhs) { return ((x == rhs.x)&&(y == rhs.y)); }
 };
 #endif
 

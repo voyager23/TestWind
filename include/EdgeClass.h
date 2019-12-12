@@ -26,6 +26,7 @@
 
 #include <iostream>
 #include <vector>
+
 #include "PointClass.h"
 
 
@@ -39,7 +40,7 @@ class Edge {
 
 	double m;
 	double c;
-	int used;
+	bool used;
 
 	vector<Edge>::iterator next;
 	
