@@ -40,7 +40,7 @@ DataSet::DataSet(int x, int y, int n) {
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
 	
 			// debug set seed to constant value
-			seed = 123456;
+			// seed = 123456;
 			std::default_random_engine generator (seed);
 			// end debug
 			
@@ -146,6 +146,10 @@ int DataSet::trajectory_search() {
 		current->used = true;
 		size = 0;
 		
+		// push current edge
+		trajectory.push_back(current);
+		size = 1;
+		
 		// main loop start
 		while(1) {
 			// inner loop to find next pivot
@@ -174,7 +178,7 @@ int DataSet::trajectory_search() {
 		cout << "Trajectory size: " << size << endl;
 		// print trajectory
 		for(auto x = trajectory.begin(); x != trajectory.end(); ++x) (**x).prt_edge();
-		
+		cout << endl;
 	} // next start point
 	return 0;
 }
