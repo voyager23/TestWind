@@ -36,6 +36,20 @@ Edge::Edge(Point p, Point q) {
 	m = dy / dx;
 	c = from.gety() - (m * from.getx());
 	phi = atan(m);
+		// Adjust phi values 0.0 <= phi <= 2pi
+		if(m >= 0.0) { // +ve phi
+			if(dy >= 0.0) { // Quad 1
+				phi = phi;
+			} else {
+				phi += M_PI;  // Quad 2
+			}
+		} else { // Note: -ve phi
+			if(dy >= 0.0) {
+				phi = M_PI + phi; // Quad 3
+			} else {
+				phi = M_PI + M_PI + phi; // Quad 4
+			}
+		} // if..else 		
 	used = false;	
 }
 

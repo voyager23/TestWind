@@ -38,8 +38,12 @@ DataSet::DataSet(int x, int y, int n) {
 	
 	// construct a trivial random generator engine from a time-based seed:
 	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-	std::default_random_engine generator (seed);
-
+	
+			// debug set seed to constant value
+			seed = 123456;
+			std::default_random_engine generator (seed);
+			// end debug
+			
 	std::uniform_int_distribution<int> dist_x(1,x-1);
 	std::uniform_int_distribution<int> dist_y(1,y-1);
 
@@ -120,15 +124,11 @@ int DataSet::trajectory_search() {
 		// clear trajectory vector
 		trajectory.clear();
 		
-		// clear/set data values
-		omega = 0.0;
-		size = 0;
-		
 		// set the sentinel point
 		// criteria: equal_points(start_point,sentinel->from) && sentinel->phi > omega && sentinel->used == false
 		sentinel = edges.begin();
 		do {
-			if ( (start_point.match_point(start_point, sentinel->from)) && ((sentinel->phi) > omega) && (sentinel->used == false)) break;
+			if ( (start_point.match_point(start_point, sentinel->from))) break;
 			++sentinel;
 		} while(sentinel != edges.end());
 		
@@ -144,6 +144,7 @@ int DataSet::trajectory_search() {
 		omega = sentinel->phi;
 		next = current;
 		current->used = true;
+		size = 0;
 		
 		// main loop start
 		while(1) {
@@ -151,22 +152,29 @@ int DataSet::trajectory_search() {
 			do {
 				if ((start_point.match_point(current->to, next->from))&&(next->phi > omega)) break;
 				++next;
-				if(next == edges.end()) next = edges.begin(); // implement a ring
+				if(next == edges.end()) {
+					next = edges.begin(); // implement a ring
+					omega = 0.0;
+				}
 			} while (next != current);
 			
 			if((next == current)||(next->used)) break;	// trajectory is closed
 			
 			// This is a viable edge so add to trajectory
 			trajectory.push_back(next);
-			next->used = true;
 			size += 1;
+			next->used = true;
+			omega = next->phi;
 			current = next;
 			
 		} // main loop end
 		
 		// print/output trajectory vector
+		start_point.prt_point();
 		cout << "Trajectory size: " << size << endl;
-	
+		// print trajectory
+		for(auto x = trajectory.begin(); x != trajectory.end(); ++x) (**x).prt_edge();
+		
 	} // next start point
 	return 0;
 }
