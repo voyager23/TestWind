@@ -36,13 +36,15 @@
 
 using namespace std;
 
+typedef vector<vector<Edge>::iterator> Trajectory;
+
 class DataSet {
 	public:
 	vector<Point> points;
 	vector<Edge> edges;
 	vector< vector<Edge>::iterator > trajectory;
 	DataSet(int x, int y, int n);
-	int trajectory_search();
+	void trajectory_search(vector<Trajectory*>&);
 	
 	
 	private:

@@ -23,10 +23,11 @@
 
 #include <iostream>
 #include <algorithm>
-#define N 5
+#define N 6
 #include "../include/PointClass.h"
 #include "../include/EdgeClass.h"
 #include "../include/DataSetClass.h"
+#include "../include/AnimationClass.h"
 
 using namespace std;
 
@@ -62,8 +63,17 @@ int main(int argc, char **argv)
 	prt_vector_edges(dataset.edges);
 	
 	cout << "Starting trajectory search." << endl;
-	dataset.trajectory_search();
+	vector<Trajectory*> bar;
+	dataset.trajectory_search(bar);
 	cout << "Search complete." << endl;
+	
+	// Graphics function: 
+	// Takes a Trajectory pointer as parameter and returns a gtk-animation
+	
+	Animation *simple_animation = new Animation();
+	GdkPixbufSimpleAnim *anim = (*simple_animation).create_simple_animation(bar[0]);
+	
+	// gtk-window to display the animation. Close window to move to next trajectory
 	
 	return 0;
 }

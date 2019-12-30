@@ -106,23 +106,28 @@ DataSet::DataSet(int x, int y, int n) {
 	cout << "Dataset construction complete";
 };
 
-int DataSet::trajectory_search() {
+void DataSet::trajectory_search(vector<Trajectory*>& bar) {
 	
 	int size = 0;		// number of edges in trajectory
 	double omega = 0.0; // current rotation angle (radians)
 	Point start_point;
 	vector<Edge>::iterator sentinel, current, next;
 	
+	bar.clear();
 
 	
 	for(auto start_iter = points.begin(); start_iter != points.end(); ++start_iter) {
+		
+		Trajectory *foo = new Trajectory;
+		bar.push_back(foo);
+
 		start_point = *start_iter;
 		
 		// clear all 'used' flags
 		for(auto e = edges.begin(); e != edges.end(); ++e) e->used = false;
 		
 		// clear trajectory vector
-		trajectory.clear();
+		foo->clear();
 		
 		// set the sentinel point
 		// criteria: equal_points(start_point,sentinel->from) && sentinel->phi > omega && sentinel->used == false
@@ -147,7 +152,7 @@ int DataSet::trajectory_search() {
 		size = 0;
 		
 		// push current edge
-		trajectory.push_back(current);
+		foo->push_back(current);
 		size = 1;
 		
 		// main loop start
@@ -165,7 +170,7 @@ int DataSet::trajectory_search() {
 			if((next == current)||(next->used)) break;	// trajectory is closed
 			
 			// This is a viable edge so add to trajectory
-			trajectory.push_back(next);
+			foo->push_back(next);
 			size += 1;
 			next->used = true;
 			omega = next->phi;
@@ -177,10 +182,12 @@ int DataSet::trajectory_search() {
 		start_point.prt_point();
 		cout << "Trajectory size: " << size << endl;
 		// print trajectory
-		for(auto x = trajectory.begin(); x != trajectory.end(); ++x) (**x).prt_edge();
+		for(auto x = foo->begin(); x != foo->end(); ++x) (**x).prt_edge();
 		cout << endl;
 	} // next start point
-	return 0;
+	
+	// TODO: Return the vector of pointers to Trajectories
+	
 }
 
 void prt_vector_points(vector<Point> points) {
